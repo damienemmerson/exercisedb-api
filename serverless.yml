@@ -1,0 +1,26 @@
+service: exercisedb-api-lambda
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-southeast-2
+  httpApi:
+    cors: true
+
+build:
+  esbuild: true
+  minify: true
+  target: node18
+
+functions:
+  api:
+    handler: src/lambda.handler
+    events:
+      - httpApi:
+          path: /{proxy+}
+          method: ANY
+
+package:
+  patterns:
+    - 'src/data/**'   # includes exercises.json etc
