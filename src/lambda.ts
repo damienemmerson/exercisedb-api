@@ -4,6 +4,8 @@ import server from './server' // exports { fetch, port }
 
 const bridge = new Hono()
 
-bridge.all('*', (c) => server.fetch(c.req.raw, {} as object, c.executionCtx))
+// Forward every request to the existing fetch without env/executionCtx
+bridge.all('*', (c) => server.fetch(c.req.raw))
 
 export const handler = handle(bridge)
+

@@ -1,0 +1,51 @@
+{
+  "name": "exercisedb-api",
+  "description": "ExerciseDB API",
+  "repository": "https://github.com/exercisedb/exercisedb-api",
+  "version": "0.0.7",
+  "author": "ExerciseDB API",
+  "license": "AGPL-3.0",
+  "type": "module",
+  "main": "dist/server.js",
+  "module": "dist/server.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "require": "./dist/index.js",
+    "import": "./dist/index.js"
+  },
+  "sideEffects": false,
+  "imports": {
+    "#modules/*": {
+      "types": "./src/modules/*/index.d.ts",
+      "production": "./dist/modules/*/index.js",
+      "default": "./src/modules/*/"
+    },
+    "#common/*": {
+      "types": "./src/common/*/index.d.ts",
+      "production": "./dist/common/*/index.js",
+      "default": "./src/common/*/"
+    },
+    "#infra/*": {
+      "types": "./src/infra/*/index.d.ts",
+      "production": "./dist/infra/*/index.js",
+      "default": "./src/infra/*/"
+    }
+  },
+  "scripts": {
+    "dev": "bun run --hot src/server.ts",
+    "start": "bun dist/server.js",
+    "build": "tsc && tsc-alias",
+    "format": "prettier --write \"./**/*.{js,ts,json}\"",
+    "lint": "eslint .",
+    "lint:fix": "bun run lint --fix",
+    "test": "vitest run",
+    "test:ui": "vitest --ui",
+    "deploy": "vercel deploy --prod",
+    "postinstall": "npx simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "bun run lint && bun run format",
+    "commit-msg": "bun run commitlint --edit $1"
+  },
+  "dependencies": {}
+}

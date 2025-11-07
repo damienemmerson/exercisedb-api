@@ -23,4 +23,4 @@ functions:
 
 package:
   patterns:
-    - 'src/data/**'   # includes exercises.json etc
+    - 'src/data/**' # includes exercises.json etc
